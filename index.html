@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="pl" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Najbardziej glitchowa paczka FiveM – żółty neon, cyberpunk, zakłócenia, błędy systemu, 500+ skryptów." />
+  <title>GLITCH FIVEM | ŻÓŁTY NEON</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    :root {
+      --neon-yellow: #FFD700;
+      --neon-red: #FF2A6D;
+      --neon-green: #00F3A3;
+      --bg: #000000;
+      --text: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Share Tech Mono', monospace;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      position: relative;
+      line-height: 1.6;
+    }
+
+    /* NOISE BACKGROUND */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+      z-index: -3;
+      pointer-events: none;
+    }
+
+    /* SCANLINES */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.15) 0px,
+        rgba(0, 0, 0, 0.15) 1px,
+        transparent 1px,
+        transparent 2px
+      );
+      z-index: -2;
+      pointer-events: none;
+      animation: scan 8s linear infinite;
+    }
+
+    @keyframes scan {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 200%; }
+    }
+
+    /* POWER OUTAGE EFFECT */
+    .power-outage {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: black;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 9999;
+      animation: power-flicker 8s infinite;
+    }
+
+    @keyframes power-flicker {
+      0%, 96%, 98%, 100% { opacity: 0; }
+      97%, 99% { opacity: 1; }
+    }
+
+    /* GLITCH TEXT */
+    .glitch {
+      position: relative;
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      color: var(--neon-yellow);
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.9);
+      animation: glitch-pulse 4s infinite;
+    }
+
+    .glitch::before,
+    .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .glitch::before {
+      color: var(--neon-green);
+      animation: glitch-anim 5s infinite alternate-reverse;
+      clip-path: polygon(0 0, 100% 0, 100% 48%, 0 48%);
+      opacity: 0.85;
+    }
+
+    .glitch::after {
+      color: var(--neon-red);
+      animation: glitch-anim2 4.5s infinite alternate-reverse;
+      clip-path: polygon(0 52%, 100% 52%, 100% 100%, 0 100%);
+      opacity: 0.85;
+    }
+
+    @keyframes glitch-pulse {
+      0%, 100% { text-shadow: 0 0 10px rgba(255, 215, 0, 0.9); }
+      50% { text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 30px rgba(255, 215, 0, 0.8); }
+    }
+
+    @keyframes glitch-anim {
+      0% { transform: translate(0); }
+      10% { transform: translate(-2px, 1px); }
+      20% { transform: translate(2px, -1px); }
+      30% { transform: translate(-3px, 2px); }
+      40% { transform: translate(3px, -2px); }
+      50% { transform: translate(-1px, 1px); }
+      60% { transform: translate(1px, -1px); }
+      70% { transform: translate(-2px, 0); }
+      80% { transform: translate(2px, 1px); }
+      90% { transform: translate(-1px, -1px); }
+      100% { transform: translate(0); }
+    }
+
+    @keyframes glitch-anim2 {
+      0% { transform: translate(0); }
+      10% { transform: translate(2px, -1px); }
+      20% { transform: translate(-2px, 1px); }
+      30% { transform: translate(3px, -2px); }
+      40% { transform: translate(-3px, 2px); }
+      50% { transform: translate(1px, -1px); }
+      60% { transform: translate(-1px, 1px); }
+      70% { transform: translate(2px, 0); }
+      80% { transform: translate(-2px, -1px); }
+      90% { transform: translate(1px, 1px); }
+      100% { transform: translate(0); }
+    }
+
+    /* GLITCH BUTTON */
+    .glitch-btn {
+      position: relative;
+      background: transparent;
+      color: var(--neon-yellow);
+      border: 2px solid var(--neon-yellow);
+      padding: 1rem 2.5rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      overflow: hidden;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+    }
+
+    .glitch-btn:hover {
+      animation: glitch-btn 0.4s infinite;
+    }
+
+    @keyframes glitch-btn {
+      0% { text-shadow: 0 0 10px var(--neon-yellow); transform: translateX(0); }
+      25% { text-shadow: 3px 0 0 var(--neon-red), -3px 0 0 var(--neon-green); transform: translateX(-2px); }
+      50% { text-shadow: -3px 0 0 var(--neon-red), 3px 0 0 var(--neon-green); transform: translateX(2px); }
+      75% { text-shadow: 3px 0 0 var(--neon-green), -3px 0 0 var(--neon-red); transform: translateX(-1px); }
+      100% { text-shadow: 0 0 10px var(--neon-yellow); transform: translateX(0); }
+    }
+
+    /* HEADER */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(5px);
+      border-bottom: 1px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      color: var(--neon-yellow);
+      text-shadow: 0 0 12px rgba(255, 215, 0, 0.9);
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      margin-left: 1.8rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--neon-yellow);
+      box-shadow: 0 0 8px var(--neon-yellow);
+      transition: width 0.3s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* HERO */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 2rem;
+      position: relative;
+    }
+
+    .hero p {
+      font-size: 1.3rem;
+      max-width: 700px;
+      margin: 1.5rem auto 2.5rem;
+      color: var(--neon-yellow);
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.7);
+      font-family: 'Share Tech Mono', monospace;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 6rem 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.8rem;
+      text-align: center;
+      margin-bottom: 4rem;
+      color: var(--neon-yellow);
+      text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+    }
+
+    /* FEATURES */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .feature-card {
+      background: rgba(10, 10, 20, 0.7);
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      padding: 2rem;
+      text-align: center;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover {
+      border-color: var(--neon-yellow);
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+    }
+
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: var(--neon-yellow);
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+    }
+
+    .feature-card h3 {
+      font-family: 'Orbitron', sans-serif;
+      color: var(--neon-yellow);
+      margin: 1rem 0;
+      text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+    }
+
+    /* ERROR MESSAGES */
+    .error-log {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 1px solid var(--neon-red);
+      color: var(--neon-red);
+      padding: 0.8rem;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s, transform 0.5s;
+      z-index: 9998;
+    }
+
+    .error-log.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: rgba(0, 0, 0, 0.95);
+      margin-top: 4rem;
+      border-top: 1px solid rgba(255, 215, 0, 0.3);
+      color: var(--neon-yellow);
+      text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+      font-family: 'Share Tech Mono', monospace;
+    }
+        /* LOADING SCREEN */
+        #loadingScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+        }
+
+        #loadingScreen.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        #loadingAvatar {
+            width: 200px;
+            height: 200px;
+            animation: rotate360 2s linear infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8));
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        #loadingScreen.active #loadingAvatar {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        @keyframes rotate360 {
+            from { transform: rotate(0deg) scale(1); }
+            to { transform: rotate(360deg) scale(1); }
+        }
+  </style>
+</head>
+<body>
+
+  <!-- Power outage effect -->
+  <div class="power-outage"></div>
+
+  <!-- Error log (pojawi się losowo) -->
+  <div class="error-log" id="errorLog">SYSTEM ERROR: GLITCH DETECTED</div>
+
+  <header>
+    <div class="logo">GLITCHY PACK</div>
+    <nav>
+      <a href="#features">FUNKCJE</a>
+      <a href="#pricing">CENNIK</a>
+      <a href="#contact">KONTAKT</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1 class="glitch" data-text="Glitchy pack">Glitchy pack</h1>
+    <p>250+ SKRYPTÓW • ŻÓŁTY THEME • GLICZE • ONE-SYNC • WSPIERANE 24/7</p>
+    <button class="glitch-btn" onclick="simulatePurchase()">
+      KUP TERAZ
+    </button>
+  </section>
+
+  <section id="features">
+    <h2 class="section-title">FUNKCJE SYSTEMU</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+        <h3>WYDAJNOŚĆ</h3>
+        <p>Optymalizacja pod 1000+ graczy. Zero lagów.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-code"></i></div>
+        <h3>GLITCH UI</h3>
+        <p>Pełen żółty interfejs z efektami zakłóceń.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+        <h3>ANTY-CHEAT</h3>
+        <p>Własny system ochrony przed exploitami.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <h2 class="section-title">CENNIK LICENCJI</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <h3>STANDARD</h3>
+        <div style="font-family: 'Orbitron'; font-size: 2.5rem; color: var(--neon-yellow); margin: 1rem 0; text-shadow: 0 0 10px rgba(255,215,0,0.8);">199 zł</div>
+        <button class="glitch-btn" style="width: 100%; margin-top: 1rem;">KUP</button>
+      </div>
+      <div class="feature-card" style="border: 2px solid var(--neon-yellow); box-shadow: 0 0 25px rgba(255,215,0,0.6);">
+        <h3 class="glitch" data-text="NEON EDITION" style="font-size: 1.8rem;">NEON EDITION</h3>
+        <div style="font-family: 'Orbitron'; font-size: 2.5rem; color: var(--neon-yellow); margin: 1rem 0; text-shadow: 0 0 15px rgba(255,215,0,1);">349 zł</div>
+        <button class="glitch-btn" style="width: 100%; margin-top: 1rem;">KUP</button>
+      </div>
+    </div>
+  </section>
+    <div id="loadingScreen">
+        <img src="https://imgur.com/PFK5CRB.png" id="loadingAvatar">
+    </div>
+  <footer>
+    <p>&copy; 2025 GLITCH.FIVEM — ŻÓŁTY NEON WERSJA 7.3.1</p>
+    <p>DISCORD: glitchfivem#0000 | STATUS: ONLINE</p>
+  </footer>
+
+  <script>
+    const loadingScreen = document.getElementById('loadingScreen');
+        loadingScreen.classList.add('active');
+        
+        setTimeout(() => {
+            loadingScreen.classList.remove('active');
+            appearancePanel.classList.remove('hidden');
+            document.body.style.background = 'rgba(0,0,0,0.9)';
+        }, 2500);
+    // Symulacja dźwięku glitcha (opcjonalnie)
+    function playGlitchSound() {
+      // W prawdziwej wersji możesz dodać AudioContext
+      console.log("Glitch sound simulated");
+    }
+
+    // Symulacja zakupu
+    function simulatePurchase() {
+      playGlitchSound();
+      alert("⚠️ DEMO: W prawdziwej wersji przekierowuje do płatności.\nTwoja paczka będzie świecić jak żółty neon!");
+    }
+
+    // Losowe błędy systemu
+    function showRandomError() {
+      const errors = [
+        "ERROR: GLITCH DETECTED",
+        "WARNING: NEON OVERLOAD",
+        "ALERT: CYBERPUNK MODE ACTIVATED",
+        "SYSTEM: YELLOW UI DEPLOYED",
+        "FIVEM: SERVER OPTIMIZED"
+      ];
+      const errorLog = document.getElementById('errorLog');
+      errorLog.textContent = errors[Math.floor(Math.random() * errors.length)];
+      errorLog.classList.add('show');
+      setTimeout(() => errorLog.classList.remove('show'), 3000);
+    }
+
+    // Co 12-20 sekund pokazuj losowy błąd
+    setInterval(showRandomError, Math.floor(Math.random() * 8000) + 12000);
+  </script>
+
+</body>
+</html>
